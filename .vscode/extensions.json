@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "ms-vscode-remote.remote-wsl",
+    "dbaeumer.vscode-eslint",
+    "ms-python.autopep8",
+    "ms-python.black-formatter",
+    "ms-python.python",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    "postman.postman-for-vscode",
+    "bradlc.vscode-tailwindcss",
+    "humao.rest-client",
+    "github.copilot",
+    "github.copilot-chat"
+  ]
+}
