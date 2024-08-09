@@ -2,6 +2,9 @@
 # Base #
 ########
 
+# Bun
+bun.lockb
+
 # Vercel
 .vercel
 
