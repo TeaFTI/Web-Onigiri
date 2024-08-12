@@ -2,6 +2,8 @@
  * SVGR (Scalable Vector Graphic Raw) Configuration
  */
 
-module.exports = {
+const svgrConfig = {
   dimensions: false,
-}
+};
+
+export default svgrConfig;
