@@ -4,6 +4,11 @@
 
 import { Viewport } from 'next';
 
+import reactArrayToTree from 'react-array-to-tree';
+
+// Context
+import BootstrapProvider from '@/context/BootstrapContext';
+
 // CSS
 import '@/style/global.scss';
 import './root.css';
@@ -14,6 +19,10 @@ export const viewport: Viewport = {
   maximumScale: 1,
 }
 
+const ProviderTree = reactArrayToTree([
+  <BootstrapProvider children={undefined} />,
+]);
+
 export default function RootLayout({
   children,
 }: {
@@ -21,9 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-    <body>
-      {children}
-    </body>
+      <body>
+        <ProviderTree>
+          {children}
+        </ProviderTree>
+      </body>
     </html>
   )
 }
