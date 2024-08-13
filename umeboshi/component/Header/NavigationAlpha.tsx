@@ -5,13 +5,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ListIcon from 'bootstrap-icons/icons/list.svg';
-import ThreeDotIcon from 'bootstrap-icons/icons/three-dots.svg';
 import GithubIcon from 'bootstrap-icons/icons/github.svg';
+import ListIcon from 'bootstrap-icons/icons/list.svg';
 
 import './Navigation.scss';
 
-export default function Navigation({ page }: { page: string }) {
+export default function NavigationAlpha({ page }: { page: string }) {
   return (
     <header className='navbar navbar-expand-lg sticky-top'>
       <nav className='container-fluid align-items-center' aria-label='Main Navigation'>
