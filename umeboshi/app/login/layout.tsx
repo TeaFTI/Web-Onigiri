@@ -4,6 +4,9 @@
 
 import type { Metadata } from 'next';
 
+// Style
+import './login.scss';
+
 export const metadata: Metadata = {
   title: 'Onigiri | Login',
   description: 'Onigiri | Login',
@@ -15,7 +18,7 @@ export default function LoginLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className='d-flex justify-content-center align-items-center flex-grow-1'>
+    <div className='h-100'>
       {children}
     </div>
   );
