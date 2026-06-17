@@ -3,7 +3,7 @@
  */
 
 import { type DrizzleClient } from "../client";
-import chartOfAccountTypeTable from "../schema/chart-of-account-type";
+import { chartOfAccountTypeTable } from "../schema/chart-of-account-type";
 
 import chartOfAccountTypeList from "./data/chart-of-account-type.json";
 
