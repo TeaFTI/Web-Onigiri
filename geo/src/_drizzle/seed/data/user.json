@@ -1,7 +1,8 @@
 [
   {
     "username": "administrator",
-    "passwordHash": "IHopeThisIsNotYourPassword",
+    "password": "IHopeThisIsNotYourPassword",
+    "email": "administrator@localhost.lcl",
     "salt": "correcthorsebatterystaple"
   }
 ]

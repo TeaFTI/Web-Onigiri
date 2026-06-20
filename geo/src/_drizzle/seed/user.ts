@@ -2,13 +2,30 @@
  * Database Seed User
  */
 
-import { type DrizzleClient } from "../client";
-import { userTable } from "../schema/user";
+import { hashPassword } from "../../server/authentication/password";
+import * as user from "../database/user.server";
 
 import userList from "./data/user.json";
 
-async function seed(drizzleClient: DrizzleClient) {
-  await drizzleClient.insert(userTable).values(userList);
+async function seed() {
+  const borealisSalt = process.env.BOREALIS_SALT ?? "";
+
+  await Promise.all(
+    userList.map(async (userItem) => {
+      const passwordHash = await hashPassword(
+        userItem.password,
+        userItem.salt + borealisSalt,
+      );
+
+      return user.create({
+        data: {
+          username: userItem.username,
+          passwordHash: passwordHash,
+          salt: userItem.salt,
+        },
+      });
+    }),
+  );
 }
 
 export default seed;
