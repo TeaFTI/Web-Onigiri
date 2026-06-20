@@ -95,7 +95,6 @@ export function RegisterForm() {
           className="flex flex-col gap-6"
           onSubmit={(event) => {
             event.preventDefault();
-            event.stopPropagation();
             form.handleSubmit();
           }}
         >
@@ -132,7 +131,7 @@ export function RegisterForm() {
             {/* Email */}
             <form.Field
               name="email"
-              // validators={{ onChange: registerSchema.shape.email }}
+              validators={{ onChange: registerSchema.shape.email }}
               children={(field) => {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
@@ -148,7 +147,7 @@ export function RegisterForm() {
                       aria-invalid={isInvalid}
                       type="email"
                       placeholder="email@example.com"
-                    // required
+                      required
                     />
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
@@ -251,17 +250,14 @@ export function RegisterForm() {
             />
             {/* Submit */}
             <Field>
-              <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
-                {([canSubmit, isSubmitting]) => (
-                  <Button
-                    type="submit"
-                    form="register-form"
-                    disabled={!canSubmit}
-                  >
+              <form.Subscribe
+                selector={(state) => [state.canSubmit, state.isSubmitting]}
+                children={([canSubmit, isSubmitting]) => (
+                  <Button type="submit" disabled={!canSubmit}>
                     {isSubmitting ? "Creating..." : "Create User"}
                   </Button>
                 )}
-              </form.Subscribe>
+              />
             </Field>
             <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
               Or
