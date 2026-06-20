@@ -1,9 +1,17 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { usernameClient } from "better-auth/client/plugins";
+import { username } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { createClient } from "redis";
 
 import { drizzleClient } from "../_drizzle/client";
+import {
+  betterauthAccountTable,
+  betterauthSessionTable,
+  betterauthUserTable,
+  betterauthVerificationTable,
+} from "../_drizzle/schema/better-auth";
 import { REDIS_URI } from "../configuration/redis";
 
 const betterAuthTablePrefix = process.env.BETTER_AUTH_TABLE_PREFIX
@@ -18,6 +26,12 @@ export const auth = betterAuth({
   // Database
   database: drizzleAdapter(drizzleClient, {
     provider: "pg",
+    schema: {
+      [`${betterAuthTablePrefix}user`]: betterauthUserTable,
+      [`${betterAuthTablePrefix}session`]: betterauthSessionTable,
+      [`${betterAuthTablePrefix}account`]: betterauthAccountTable,
+      [`${betterAuthTablePrefix}verification`]: betterauthVerificationTable,
+    },
   }),
   // Schema
   user: {
@@ -55,5 +69,9 @@ export const auth = betterAuth({
     enabled: true,
   },
   // Plugin
-  plugins: [tanstackStartCookies()],
+  plugins: [
+    tanstackStartCookies(),
+    username(),
+    usernameClient(),
+  ],
 });
