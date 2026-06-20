@@ -25,7 +25,7 @@
     "betterauth:generate": "npx auth@latest generate --config ./src/_betterauth/auth.ts --output ./src/_drizzle/schema/better-auth.ts"
   },
   "dependencies": {
-    "@base-ui/react": "^1.4",
+    "@base-ui/react": "^1.5",
     "@noble/ciphers": "^1.3",
     "@tanstack/react-form": "^1.33",
     "@tanstack/react-router": "^1.170",
