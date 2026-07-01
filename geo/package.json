@@ -22,7 +22,10 @@
     "drizzle:plant": "dotenvx run -- npx tsx ./src/_drizzle/plant.ts",
     "drizzle:unplant": "dotenvx run -- npx tsx ./src/_drizzle/unplant.ts",
     "drizzle:all": "dotenvx run -- sh -c 'drizzle-kit generate && drizzle-kit migrate && npx tsx ./src/_drizzle/plant.ts'",
-    "betterauth:generate": "npx auth@latest generate --config ./src/_betterauth/auth.ts --output ./src/_drizzle/schema/better-auth.ts"
+    "betterauth:generate": "npx auth@latest generate --config ./src/_betterauth/auth.ts --output ./src/_drizzle/schema/better-auth.ts",
+    "test": "vitest run --pool=forks",
+    "test:coverage": "vitest run --pool=forks --coverage",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@base-ui/react": "^1.5",
@@ -58,10 +61,12 @@
     "@types/react": "^19.2",
     "@types/react-dom": "^19.2",
     "@vitejs/plugin-react": "^6.0",
+    "@vitest/coverage-v8": "^4.1",
     "drizzle-kit": "^1.0.0-rc.4",
     "tailwindcss": "^4.3",
     "typescript": "^6.0",
-    "vite": "^8.0"
+    "vite": "^8.0",
+    "vitest": "^4.1"
   },
   "overrides": {
     "esbuild": "^0.28",
