@@ -15,11 +15,13 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 
+import { Toaster } from "~/_shadcn/interface/sonner";
 import { siteConfiguration } from "~/configuration/site";
 import { ThemeProvider } from "~/context/theme";
 
 // import globalCss from "../res/css/global.css?url";
 import "../res/css/global.css";
+
 
 export const Route = createRootRoute({
   head: () => ({
@@ -57,6 +59,9 @@ function ProviderComponent({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
       {children}
+      <Toaster
+        position="top-center"
+      />
     </ThemeProvider>
   );
 }
