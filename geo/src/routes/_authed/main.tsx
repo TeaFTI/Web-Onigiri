@@ -3,10 +3,9 @@ import {
 } from "@tanstack/react-router";
 
 import { SidebarProvider } from "~/_shadcn/interface/sidebar";
-
 import { MainSidebar } from "~/component/main-sidebar";
 
-export const Route = createFileRoute("/main")({
+export const Route = createFileRoute("/_authed/main")({
   component: Main,
 })
 

@@ -76,9 +76,9 @@ export const auth = betterAuth({
   },
   // Plugin
   plugins: [
-    tanstackStartCookies(),
     username(),
     usernameClient(),
+    tanstackStartCookies(), // Must be the last plugin in the array
   ],
   // Advanced
   advanced: {

@@ -3,7 +3,8 @@ import * as z from "zod";
 const fullNameRule = z.string().min(3);
 const usernameRule = z.string().min(3).max(20);
 const emailRule = z.email();
-const passwordRule = z.string().min(16);
+// const passwordRule = z.string().min(16);
+const passwordRule = z.string().min(8);
 
 const registerSchema = z.object({
   fullName: fullNameRule,

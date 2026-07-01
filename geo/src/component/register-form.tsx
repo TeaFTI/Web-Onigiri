@@ -4,6 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 
+import { toast } from "sonner";
 import { Button } from "~/_shadcn/interface/button";
 import {
   Card,
@@ -21,7 +22,7 @@ import {
   FieldSeparator,
 } from "~/_shadcn/interface/field";
 import { Input } from "~/_shadcn/interface/input";
-import { registerFn } from "~/server/authentication/authentication";
+import { registerFn } from "~/server/authentication/register";
 import { registerSchema } from "~/server/authentication/schema";
 
 const validatePasswordPair = (
@@ -66,7 +67,10 @@ export function RegisterForm() {
         password: value.password,
       },
     });
-    if (result?.error) setServerError(result.error);
+    if (result?.error) {
+      setServerError(result.error)
+      toast.error(result.error);
+    }
   }
 
   const form = useForm({

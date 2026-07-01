@@ -59,9 +59,7 @@ function ProviderComponent({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="system" storageKey="theme">
       {children}
-      <Toaster
-        position="top-center"
-      />
+      <Toaster position="top-center" />
     </ThemeProvider>
   );
 }
