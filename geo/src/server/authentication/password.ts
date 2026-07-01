@@ -1,4 +1,6 @@
 /**
+ * Password
+ *
  * Password Authentication
  */
 
@@ -9,7 +11,7 @@ const SALT_SIZE = 32;
 /**
  * Generate a random salt for hash password.
  *
- * @param saltSize - The size of the salt in bytes.
+ * @param {number} saltSize - The size of the salt in bytes.
  * @returns {string} The generated salt.
  */
 function generateSalt({

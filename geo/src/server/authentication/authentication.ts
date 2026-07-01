@@ -1,3 +1,7 @@
+/**
+ * Authentication
+ */
+
 import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 
@@ -7,8 +11,6 @@ import * as user from "~/_drizzle/database/user.server";
 import { generateSalt, hashPassword } from "./password";
 import { registerSchema } from "./schema";
 import { readSessionToken } from "./session";
-
-const SESSION_TTL_MS = 1000 * 60 * 60 * 24; // 1 Day
 
 const registerFn = createServerFn({ method: "POST" })
   .validator(registerSchema)
@@ -22,7 +24,8 @@ const registerFn = createServerFn({ method: "POST" })
         username: data.username,
         displayUsername: data.fullName,
       }
-    })
+    });
+    console.debug("BetterAuth User: ", betterauthUser);
 
     // Self Register
     const retrieveUser = await user.retrieveByUsername({ username: data.username });
@@ -33,13 +36,14 @@ const registerFn = createServerFn({ method: "POST" })
     const userSalt = generateSalt();
     const geoSalt = process.env.GEO_SALT ?? "";
     const userData = {
+      id: betterauthUser.user.id,
       name: data.fullName,
       email: data.email,
       username: data.username,
       passwordHash: await hashPassword(data.password, userSalt + geoSalt),
       salt: userSalt,
     }
-    // console.debug("User Data: ", userData);
+    console.debug("User Data: ", userData);
 
     const createUser = await user.create({ data: userData });
     // console.debug("Create User: ", createUser);

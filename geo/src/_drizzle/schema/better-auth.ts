@@ -2,17 +2,18 @@
  * Better Auth Tables Schema
  */
 
-import { defineRelations } from "drizzle-orm";
+import { defineRelations, sql } from "drizzle-orm";
 import {
   boolean,
   index,
   pgTable,
   text,
   timestamp,
+  uuid,
 } from "drizzle-orm/pg-core";
 
 const betterauthUserTable = pgTable("betterauth_user", {
-  id: text("id").primaryKey(),
+  id: uuid("id").primaryKey().default(sql`uuidv7()`),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
@@ -29,7 +30,7 @@ const betterauthUserTable = pgTable("betterauth_user", {
 const betterauthSessionTable = pgTable(
   "betterauth_session",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey().default(sql`uuidv7()`),
     expiresAt: timestamp("expires_at").notNull(),
     token: text("token").notNull().unique(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -38,7 +39,7 @@ const betterauthSessionTable = pgTable(
       .notNull(),
     ipAddress: text("ip_address"),
     userAgent: text("user_agent"),
-    userId: text("user_id").notNull()
+    userId: uuid("user_id").notNull()
       .references(() => betterauthUserTable.id, { onDelete: "cascade" }),
   },
   (table) => [index("betterauth_session_user_id_idx").on(table.userId)],
@@ -47,10 +48,10 @@ const betterauthSessionTable = pgTable(
 const betterauthAccountTable = pgTable(
   "betterauth_account",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey().default(sql`uuidv7()`),
     accountId: text("account_id").notNull(),
     providerId: text("provider_id").notNull(),
-    userId: text("user_id").notNull()
+    userId: uuid("user_id").notNull()
       .references(() => betterauthUserTable.id, { onDelete: "cascade" }),
     accessToken: text("access_token"),
     refreshToken: text("refresh_token"),
@@ -70,7 +71,7 @@ const betterauthAccountTable = pgTable(
 const betterauthVerificationTable = pgTable(
   "betterauth_verification",
   {
-    id: text("id").primaryKey(),
+    id: uuid("id").primaryKey().default(sql`uuidv7()`),
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
     expiresAt: timestamp("expires_at").notNull(),

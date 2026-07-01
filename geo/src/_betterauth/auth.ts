@@ -19,6 +19,11 @@ const betterAuthTablePrefix = process.env.BETTER_AUTH_TABLE_PREFIX
 const betterAuthKeyPrefix = process.env.BETTER_AUTH_KEY_PREFIX
   ?? "better-auth:";
 
+const userTableName = `${betterAuthTablePrefix}user`;
+const sessionTableName = `${betterAuthTablePrefix}session`;
+const accountTableName = `${betterAuthTablePrefix}account`;
+const verificationTableName = `${betterAuthTablePrefix}verification`;
+
 const redis = createClient({ url: REDIS_URI });
 await redis.connect();
 
@@ -27,28 +32,29 @@ export const auth = betterAuth({
   database: drizzleAdapter(drizzleClient, {
     provider: "pg",
     schema: {
-      [`${betterAuthTablePrefix}user`]: betterauthUserTable,
-      [`${betterAuthTablePrefix}session`]: betterauthSessionTable,
-      [`${betterAuthTablePrefix}account`]: betterauthAccountTable,
-      [`${betterAuthTablePrefix}verification`]: betterauthVerificationTable,
+      [userTableName]: betterauthUserTable,
+      [sessionTableName]: betterauthSessionTable,
+      [accountTableName]: betterauthAccountTable,
+      [verificationTableName]: betterauthVerificationTable,
     },
   }),
   // Schema
   user: {
-    modelName: `${betterAuthTablePrefix}user`,
+    modelName: userTableName,
   },
   session: {
-    modelName: `${betterAuthTablePrefix}session`,
+    modelName: sessionTableName,
+    expiresIn: 60 * 60 * 24 * 7, // 7 Day
     cookieCache: {
       enabled: true,
-      maxAge: 60 * 5, // 5 Minute
+      maxAge: 60 * 1, // 1 Minute
     }
   },
   account: {
-    modelName: `${betterAuthTablePrefix}account`,
+    modelName: accountTableName,
   },
   verification: {
-    modelName: `${betterAuthTablePrefix}verification`,
+    modelName: verificationTableName,
   },
   // Secondary Storage
   secondaryStorage: {
@@ -74,4 +80,10 @@ export const auth = betterAuth({
     username(),
     usernameClient(),
   ],
+  // Advanced
+  advanced: {
+    database: {
+      generateId: false,
+    },
+  },
 });

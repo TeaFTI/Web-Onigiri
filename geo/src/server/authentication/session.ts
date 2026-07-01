@@ -1,3 +1,9 @@
+/**
+ * Session
+ *
+ * Session for TanStack Start authentication.
+ */
+
 import crypto from "crypto";
 
 import {
