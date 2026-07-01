@@ -1,0 +1,333 @@
+erDiagram
+
+    %%%%%%%%%%%%%
+    %% General %%
+    %%%%%%%%%%%%%
+
+    %% User
+    %% The user of the system
+    user ||--o| profile : has
+    user ||--o{ user_account : has
+    user ||--o| tenant : is
+    user ||--o{ user_contract : own
+    user:::general {
+        uuid id PK
+        uuid profile_id FK
+        text username
+        text password
+        text salt
+    }
+
+    %% User Account
+    user_account {
+        uuid user_id PK,FK
+        uuid account_id PK,FK
+    }
+
+    %% Contact
+    contact ||--|| profile : has
+    contact {
+        uuid id PK
+        uuid profile_id FK
+        text company
+    }
+
+    %% Profile
+    profile:::general {
+        uuid id PK
+        text prefix
+        text first_name
+        text middle_name
+        text last_name
+        text suffix
+        text phonetic_first_name
+        text phonetic_middle_name
+        text phonetic_last_lame
+        text nickname
+    }
+
+    %% Email
+    email:::general {
+        uuid id PK
+        text email
+    }
+
+    profile ||--o{ profile_email : has
+    email ||--o{ profile_email : is
+    profile_email:::general {
+        uuid profile_id PK,FK
+        uuid email_id PK,FK
+    }
+
+    %% Telephone Number
+    telephone_number:::general {
+        uuid id PK
+        text country_code
+        text number
+    }
+
+    profile ||--o{ profile_telephone_number : has
+    telephone_number ||--o{ profile_telephone_number : is
+    profile_telephone_number:::general {
+        uuid profile_id PK,FK
+        uusid telephone_number_id PK,FK
+    }
+
+    %% Address
+    address }|--|| city : has
+    address {
+        uuid id PK
+        text city_id
+        text street
+        text premise
+        text postal_code
+    }
+
+    profile ||--o| profile_address : has
+    address ||--o| profile_address : is
+    profile_address {
+        uuid profile_id PK,FK
+        uusid address_id PK,FK
+    }
+
+    %% City
+    city }|--|| division : has
+    city {
+        uuid id PK
+        uuid division_id FK
+        text name
+        text display_name
+    }
+
+    %% Division
+    division }|--|| country : has
+    division {
+        uuid id PK
+        uuid country_id FK
+        text name
+        text display_name
+        text iso_3166_2
+    }
+
+    %% Country
+    country ||--|{ country_currency : use
+    country {
+        uuid id PK
+        text name
+        text display_name
+        text official_state_name
+        text iso_3166_1
+        text iso_3166_1_alpha_2
+        text iso_3166_1_alpha_3
+    }
+
+    %%%%%%%%%%%%%%
+    %% Business %%
+    %%%%%%%%%%%%%%
+
+    %% Tenant
+    tenant:::business {
+        uuid id PK
+        uuid user_id FK
+        uuid property_id FK
+    }
+
+    %% Contract
+    contract ||--o{ user_contract : execute
+    contract ||--|{ contract_item: cover
+    contract:::business {
+        uuid id PK
+        uuid contract_status_id FK
+        text name
+        text display_name
+        timestampz activate_date
+        timestampz start_date
+        timestampz end_date
+    }
+
+    %% Contract Item
+    contract_item |o--o{ contract_item : contain
+    contract_item ||--|| property : lease
+    contract_item:::business {
+        uuid id PK
+        uuid parent_id FK
+        uuid contract_id FK
+        %% Relate To `property.id`
+        uuid product_id FK
+        text name
+        text display_name
+        text description
+        timestampz start_date
+        timestampz end_date
+    }
+
+    %% Contract Status
+    contract_status ||--o{ contract : categorize
+    contract_status:::business {
+        uuid id PK
+        text name
+        text display_name
+        text description
+    }
+
+    %% User Contract
+    user_contract {
+        uuid user_id PK,FK
+        uuid contract_id PK,FK
+    }
+
+    %% Property
+    property ||--|| address : has
+    property:::business {
+        uuid id PK
+        text key PK
+        uuid address_id FK
+        text parcel_number_local
+        text parcel_number_state
+        text parcel_number_property_id
+        text taxing_district_code
+        text taxing_district_description
+        smallint section
+        smallint township
+        smallint range
+        text subdivision_name
+        smallint subdivision_section
+        smallint deeded_acres
+        text political_township
+        smallint lot_number
+        text state_tax_district
+        text lot
+        text block
+    }
+
+    %%%%%%%%%%%%%
+    %% Finance %%
+    %%%%%%%%%%%%%
+
+    %% Account
+    account ||--o{ user_account : is
+    account ||--o{ journal : affect
+    account ||--o{ account_transaction : involve
+    account:::finance {
+        uuid id PK
+        uuid account_type_id FK
+        text name
+        text display_name
+        text description
+    }
+
+    account_type ||--o{ account : categorize
+    account_type:::finance {
+        uuid id PK
+        text name
+        text display_name
+        text description
+    }
+
+    %% Account Transaction
+    account_transaction:::finance {
+        uuid account_id PK,FK
+        uuid transaction_id PK,FK
+        uuid account_transcation_role_id FK
+    }
+
+    %% Account Transaction Role
+    account_transaction_role ||--o{ account_transaction : assign
+    account_transaction_role:::finance {
+        uuid id PK
+        text name
+        text display_name
+        text description
+    }
+
+    %% Transaction
+    transaction ||--o{ journal : contain
+    transaction ||--o{ account_transaction : involve
+    transaction:::finance {
+        uuid id PK
+        uuid transaction_type_id FK
+        uuid currency_id FK
+        uuid reverse_transaction_id FK
+        %% uuid source_account_id
+        %% uuid destination_account_id
+        text description
+        timestamptz created
+        timestamptz completed
+        %% money original_cost
+        %% money tax
+        %% money adjustment
+        %% money discount
+        %% enum tax_expense
+    }
+
+    %% Transaction Type
+    transaction_type ||--o{ transaction : categorize
+    transaction_type:::finance {
+        uuid id PK
+        text name
+        text display_name
+        text description
+    }
+
+    %% Chart of Account
+    %% Asset, Liability, Equity, Revenue, Expense, Other
+    chart_of_account |o--o{ chart_of_account : contain
+    chart_of_account ||--o{ journal : record
+    chart_of_account:::finance {
+        uuid id PK
+        uuid parent_id FK
+        uuid chart_of_account_type_id FK
+        %% uuid transaction_id FK
+        text name
+        text display_name
+        text description
+        boolean active
+    }
+
+    %% Chart of Account Type
+    chart_of_account_type ||--o{ chart_of_account : categorize
+    chart_of_account_type:::finance {
+        uuid id PK
+        text name
+        text display_name
+        text description
+    }
+
+    %% Journal
+    %% Chronological listing of business events using accounting
+    %% debit-and-credit language
+    %% Ledger
+    %% Copy of journal's events, sorted by category or account
+    journal:::finance {
+        uuid id PK
+        uuid transaction_id FK "(Index)"
+        uuid chart_of_account_id FK "(Index)"
+        uuid currency_id FK
+        text description
+        enum type "(Index), [debit | credit]"
+        money amount "(Positive)"
+        timestamptz created
+    }
+
+    %% Currency
+    currency ||--|{ country_currency : has
+    currency ||--o{ journal : has
+    currency {
+        uuid id PK
+        text name
+        text display_name
+        text abbreviation
+        text symbol
+        char(3) iso_4217
+        text fractional_unit
+        smallserial base
+    }
+
+    country_currency {
+        uuid country_id PK,FK
+        uuid currency_id PK,FK
+    }
+
+    classDef general fill:#009
+    classDef finance fill:#030
+    classDef business fill:#c60
