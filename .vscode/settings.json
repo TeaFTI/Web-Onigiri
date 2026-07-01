@@ -1,4 +1,30 @@
 {
+  "editor.rulers": [
+    {
+      "column": 72,
+      "color": "#005A00FF"
+    },
+    // {
+    //   "column": 80,
+    //   "color": "#4183C499"
+    // },
+    {
+      "column": 88,
+      "color": "#FFD34366"
+    },
+    // {
+    //   "column": 100,
+    //   "color": "#E33B2699"
+    // },
+    // {
+    //   "column": 120,
+    //   "color": "#4F5B93FF"
+    // }
+  ],
+  "[markdown]": {
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 72
+  },
   "[json]": {
     "editor.tabSize": 2
   },
@@ -37,7 +63,7 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "never"
     },
-    "editor.defaultFormatter": "ms-python.autopep8",
+    // "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": false,
     "editor.tabSize": 4
   },
