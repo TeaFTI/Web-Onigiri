@@ -1,5 +1,5 @@
 /**
- * Login
+ * Logout
  */
 
 import { redirect } from "@tanstack/react-router";
@@ -8,20 +8,14 @@ import { getRequestHeaders } from "@tanstack/react-start/server";
 import { isAPIError } from "better-auth/api";
 
 import { auth } from "~/_betterauth/auth";
-import { loginSchema } from "./schema";
 
-const loginFn = createServerFn({ method: "POST" })
-  .validator(loginSchema)
-  .handler(async ({ data }) => {
+const logoutFn = createServerFn({ method: "POST" })
+  .handler(async () => {
     try {
-      const response = await auth.api.signInEmail({
-        body: {
-          email: data.username,
-          password: data.password,
-        },
-        headers: await getRequestHeaders(),
+      const response = await auth.api.signOut({
+        headers: await getRequestHeaders()
       });
-      console.debug("BETTER-AUTH Login Response: ", response);
+      console.debug("BETTER-AUTH Logout Response: ", response);
     } catch (error) {
       // BETTER-AUTH Error
       if (isAPIError(error)) {
@@ -34,9 +28,9 @@ const loginFn = createServerFn({ method: "POST" })
       throw error;
     }
 
-    throw redirect({ to: "/main" })
+    throw redirect({ to: "/login" })
   });
 
 export {
-  loginFn
+  logoutFn
 };

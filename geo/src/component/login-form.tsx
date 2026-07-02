@@ -1,4 +1,7 @@
+import { useForm } from "@tanstack/react-form";
 import { Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { toast } from "sonner";
 
 import { Button } from "~/_shadcn/interface/button";
 import {
@@ -13,11 +16,41 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
+  FieldSeparator
 } from "~/_shadcn/interface/field";
 import { Input } from "~/_shadcn/interface/input";
+import { loginFn } from "~/server/authentication/login";
 
 export function LoginForm() {
+  const login = useServerFn(loginFn);
+
+  const handleLogin = async ({
+    value
+  }: {
+    value: {
+      username: string;
+      password: string;
+    };
+  }) => {
+    const result = await login({
+      data: {
+        username: value.username,
+        password: value.password,
+      },
+    });
+    if (result?.error) {
+      toast.error(result.error);
+    }
+  }
+
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit: handleLogin,
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <Card>
@@ -32,34 +65,74 @@ export function LoginForm() {
             id="login-form"
             onSubmit={(event) => {
               event.preventDefault();
-              event.stopPropagation();
+              form.handleSubmit();
             }}
           >
             <FieldGroup>
+              {/* Username */}
+              <form.Field
+                name="username"
+                children={(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>Username</FieldLabel>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(event) => field.handleChange(event.target.value)}
+                        aria-invalid={isInvalid}
+                        type="text"
+                        placeholder="Username"
+                        autoFocus
+                        required
+                      />
+                    </Field>
+                  )
+                }}
+              />
+              {/* Password */}
+              <form.Field
+                name="password"
+                children={(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <div className="flex items-center">
+                        <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                        <a
+                          href="#"
+                          className="ml-auto text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot Password?
+                        </a>
+                      </div>
+                      <Input
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(event) => field.handleChange(event.target.value)}
+                        aria-invalid={isInvalid}
+                        type="password"
+                        placeholder="Password"
+                        required
+                      />
+                    </Field>
+                  )
+                }}
+              />
               <Field>
-                <FieldLabel htmlFor="email">Username</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Username"
-                  autoFocus
-                  required
+                <form.Subscribe
+                  selector={(state) => [state.canSubmit, state.isSubmitting]}
+                  children={([canSubmit, isSubmitting]) => (
+                    <Button type="submit" disabled={!canSubmit}>
+                      {isSubmitting ? "Login..." : "Login"}
+                    </Button>
+                  )}
                 />
-              </Field>
-              <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot Password?
-                  </a>
-                </div>
-                <Input id="password" type="password" placeholder="Password" required />
-              </Field>
-              <Field>
-                <Button type="submit">Login</Button>
                 <FieldDescription className="text-center">
                   Have not registered? <Link to="/register">Register</Link>
                 </FieldDescription>

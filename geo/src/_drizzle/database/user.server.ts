@@ -11,7 +11,7 @@ async function retrieve({
   expand = false,
 }: {
   expand?: boolean;
-}): Promise<User[]> {
+} = {}): Promise<User[]> {
   return await drizzleClient.query.userTable.findMany({
     with: expand ? {
       profile: true,

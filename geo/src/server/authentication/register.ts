@@ -1,5 +1,5 @@
 /**
- * Authentication
+ * Register
  */
 
 import { redirect } from "@tanstack/react-router";
@@ -27,15 +27,13 @@ const registerFn = createServerFn({ method: "POST" })
           displayUsername: data.fullName,
         }
       });
-      console.debug("BetterAuth User: ", betterauthUser);
+      console.debug("BETTER-AUTH User: ", betterauthUser);
 
       // Self Register
       const retrieveUser = await user.retrieveByUsername({ username: data.username });
       if (retrieveUser) {
         return { error: "Username is already taken. Please try another." };
       }
-
-      auth.api.getSession
 
       // User
       const userSalt = generateSalt();
@@ -60,6 +58,9 @@ const registerFn = createServerFn({ method: "POST" })
         console.error("BetterAuth Error Message: ", error.message);
         return { error: error.message };
       }
+
+      // General Error
+      throw error;
     }
 
     // const sessionData = {

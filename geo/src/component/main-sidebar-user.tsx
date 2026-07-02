@@ -1,6 +1,6 @@
-"use client"
+import { useServerFn } from "@tanstack/react-start"
+import { ChevronsUpDownIcon, LogOutIcon } from "lucide-react"
 
-import { ChevronsUpDownIcon } from "lucide-react"
 import {
   Avatar,
   AvatarFallback,
@@ -10,7 +10,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/_shadcn/interface/dropdown-menu"
 import {
@@ -19,9 +21,16 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "~/_shadcn/interface/sidebar"
+import { logoutFn } from "~/server/authentication/logout"
 
 export function MainSidebarUser() {
   const { isMobile } = useSidebar()
+
+  const logout = useServerFn(logoutFn);
+
+  const handleLogout = async () => {
+    await logout();
+  }
 
   return (
     <SidebarMenu>
@@ -51,6 +60,7 @@ export function MainSidebarUser() {
             align="end"
             sideOffset={4}
           >
+            {/* User Information */}
             <DropdownMenuGroup>
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
@@ -64,6 +74,14 @@ export function MainSidebarUser() {
                   </div>
                 </div>
               </DropdownMenuLabel>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            {/* User Menu */}
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={handleLogout}>
+                <LogOutIcon />
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
