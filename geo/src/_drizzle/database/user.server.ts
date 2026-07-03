@@ -4,6 +4,8 @@ import { User, UserCreate, userTable } from "../schema/user";
 /**
  * Retrieve and return the list of user(s).
  *
+ * @param {boolean} expand - Whether to expand the user data with
+ * related profile data.
  * @returns {Promise<User[]>} A promise that resolve to an array of
  * User object(s).
  */
@@ -23,32 +25,48 @@ async function retrieve({
  * Retrieve and return a user with the given Universally Unique
  * IDentifier (UUID).
  *
+ * @param {string} id - The UUID of the user.
+ * @param {boolean} expand - Whether to expand the user data with
+ * related profile data.
  * @returns {Promise<User | undefined>} A promise that resolve to a
  * User object or undefined.
  */
 async function retrieveById({
   id,
+  expand = false,
 }: {
   id: string;
+  expand?: boolean;
 }): Promise<User | undefined> {
   return await drizzleClient.query.userTable.findFirst({
     where: { id: id },
+    with: expand ? {
+      profile: true,
+    } : undefined,
   });
 }
 
 /**
  * Retrieve and return a user with the given username.
  *
+ * @param {string} username - The username of the user.
+ * @param {boolean} expand - Whether to expand the user data with
+ * related profile data.
  * @returns {Promise<User | undefined>} A promise that resolve to a
  * User object or undefined.
  */
 async function retrieveByUsername({
   username,
+  expand = false,
 }: {
   username: string;
+  expand?: boolean;
 }): Promise<User | undefined> {
   return await drizzleClient.query.userTable.findFirst({
     where: { username: username },
+    with: expand ? {
+      profile: true,
+    } : undefined,
   });
 }
 
