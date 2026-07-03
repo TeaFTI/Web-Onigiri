@@ -1,4 +1,27 @@
 /**
+ * Universal Unique IDentifier (UUID)
+ */
+
+/**
+ * Validate Universal Unique IDentifier (UUID).
+ *
+ * Check if a given Universal Unique IDentifier (UUID) string is valid
+ * according to RFC 4122 and RFC 9562.
+ *
+ * @param {string} uuid - The UUID string to validate.
+ * @param {boolean} isNil - Whether to allow Nil UUID (all zero).
+ * @returns {boolean} True if the UUID is valid, false otherwise.
+ */
+function isValid(uuid: string, isNil: boolean = false): boolean {
+  // UUID version 1-8 with RFC 4122 and RFC 9562
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+  // Nil UUID, all zero (RFC 9562, Section 5.9)
+  const uuidNilRegex = /^0{8}-0{4}-0{4}-0{4}-0{12}$/i
+
+  return uuidRegex.test(uuid) || (isNil && uuidNilRegex.test(uuid));
+};
+
+/**
  * Universal Unique IDentifier (UUID) Version 7
  *
  * Generate an RFC 9562 compliant UUID V7 string.
@@ -71,5 +94,8 @@ function format(byteArray: Uint8Array): string {
   ].join("-");
 }
 
-export { v7 };
+export {
+  isValid,
+  v7
+};
 
