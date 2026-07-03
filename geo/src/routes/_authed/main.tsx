@@ -1,20 +1,18 @@
-import {
-  createFileRoute
-} from "@tanstack/react-router";
+/**
+ * Main Route
+ */
 
-import { SidebarProvider } from "~/_shadcn/interface/sidebar";
-import { MainSidebar } from "~/component/main-sidebar";
+import { createFileRoute } from "@tanstack/react-router";
+
 
 export const Route = createFileRoute("/_authed/main")({
-  component: Main,
+  component: MainPage,
 })
 
-function Main() {
+function MainPage() {
   return (
     <div>
-      <SidebarProvider>
-        <MainSidebar />
-      </SidebarProvider>
+      <h1>Main Page</h1>
     </div>
   );
 };
