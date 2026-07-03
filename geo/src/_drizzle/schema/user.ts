@@ -30,5 +30,6 @@ const userRelationList = defineRelations(
 );
 
 export type User = typeof userTable.$inferSelect;
+export type UserBasic = Omit<User, "passwordHash" | "salt">;
 export type UserCreate = typeof userTable.$inferInsert;
 export { userRelationList, userTable };
