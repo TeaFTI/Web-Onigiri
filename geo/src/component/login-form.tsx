@@ -3,22 +3,22 @@ import { Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
-import { Button } from "~/_shadcn/interface/button";
+import { Button } from "~/_shadcn/component/interface/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/_shadcn/interface/card";
+} from "~/_shadcn/component/interface/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator
-} from "~/_shadcn/interface/field";
-import { Input } from "~/_shadcn/interface/input";
+} from "~/_shadcn/component/interface/field";
+import { Input } from "~/_shadcn/component/interface/input";
 import { loginFn } from "~/server/authentication/login";
 
 export function LoginForm() {

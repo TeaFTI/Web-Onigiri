@@ -7,22 +7,22 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { useIsMobile } from "~/_shadcn/hook/use-mobile"
 import { cn } from "~/_shadcn/library/utility"
-import { Button } from "~/_shadcn/interface/button"
-import { Input } from "~/_shadcn/interface/input"
-import { Separator } from "~/_shadcn/interface/separator"
+import { Button } from "~/_shadcn/component/interface/button"
+import { Input } from "~/_shadcn/component/interface/input"
+import { Separator } from "~/_shadcn/component/interface/separator"
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "~/_shadcn/interface/sheet"
-import { Skeleton } from "~/_shadcn/interface/skeleton"
+} from "~/_shadcn/component/interface/sheet"
+import { Skeleton } from "~/_shadcn/component/interface/skeleton"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "~/_shadcn/interface/tooltip"
+} from "~/_shadcn/component/interface/tooltip"
 import { PanelLeftIcon } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"

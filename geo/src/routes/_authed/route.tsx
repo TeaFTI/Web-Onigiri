@@ -4,12 +4,12 @@
 
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 
-import { Separator } from "~/_shadcn/interface/separator";
+import { Separator } from "~/_shadcn/component/interface/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "~/_shadcn/interface/sidebar";
+} from "~/_shadcn/component/interface/sidebar";
 import { MainSidebar } from "~/component/main-sidebar";
 import { getCurrentSessionFn } from "~/server/authentication/session";
 

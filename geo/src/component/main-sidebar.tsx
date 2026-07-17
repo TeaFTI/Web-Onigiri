@@ -11,7 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem
-} from "~/_shadcn/interface/sidebar";
+} from "~/_shadcn/component/interface/sidebar";
 import { MainSidebarUser } from "./main-sidebar-user";
 
 

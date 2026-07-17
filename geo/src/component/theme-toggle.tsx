@@ -1,12 +1,12 @@
 import { Check, Monitor, Moon, Sun } from "lucide-react"
 
-import { Button } from "~/_shadcn/interface/button"
+import { Button } from "~/_shadcn/component/interface/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "~/_shadcn/interface/dropdown-menu"
+} from "~/_shadcn/component/interface/dropdown-menu"
 import { useTheme } from "~/context/theme"
 
 export function ThemeToggle() {

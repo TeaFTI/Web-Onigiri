@@ -15,7 +15,7 @@ import {
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
-import { Toaster } from "~/_shadcn/interface/sonner";
+import { Toaster } from "~/_shadcn/component/interface/sonner";
 import { siteConfiguration } from "~/configuration/site";
 import { ThemeProvider } from "~/context/theme";
 

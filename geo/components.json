@@ -5,7 +5,7 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "src/global.css",
+    "css": "src/res/css/global.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -13,7 +13,7 @@
   "aliases": {
     "components": "~/_shadcn/component",
     "utils": "~/_shadcn/library/utility",
-    "ui": "~/_shadcn/interface",
+    "ui": "~/_shadcn/component/interface",
     "lib": "~/_shadcn/library",
     "hooks": "~/_shadcn/hook"
   },

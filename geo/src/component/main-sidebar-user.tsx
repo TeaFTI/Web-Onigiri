@@ -5,7 +5,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "~/_shadcn/interface/avatar"
+} from "~/_shadcn/component/interface/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +14,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/_shadcn/interface/dropdown-menu"
+} from "~/_shadcn/component/interface/dropdown-menu"
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "~/_shadcn/interface/sidebar"
+} from "~/_shadcn/component/interface/sidebar"
 import { logoutFn } from "~/server/authentication/logout"
 
 export function MainSidebarUser() {

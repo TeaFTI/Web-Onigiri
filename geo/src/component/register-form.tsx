@@ -5,14 +5,14 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { Button } from "~/_shadcn/interface/button";
+import { Button } from "~/_shadcn/component/interface/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/_shadcn/interface/card";
+} from "~/_shadcn/component/interface/card";
 import {
   Field,
   FieldDescription,
@@ -20,8 +20,8 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "~/_shadcn/interface/field";
-import { Input } from "~/_shadcn/interface/input";
+} from "~/_shadcn/component/interface/field";
+import { Input } from "~/_shadcn/component/interface/input";
 import { registerFn } from "~/server/authentication/register";
 import { registerSchema } from "~/server/authentication/schema";
 
