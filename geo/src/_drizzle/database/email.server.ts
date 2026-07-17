@@ -1,5 +1,5 @@
 import { drizzleClient } from "../client";
-import { Email } from "../schema/email";
+import { Email, EmailCreate, emailTable } from "../schema/email";
 
 /**
  * Retrieve and return the list of email(s).
@@ -30,16 +30,59 @@ async function retrieve({
  */
 async function retrieveById({
   id,
+  expand = false
 }: {
   id: string;
+  expand?: boolean
 }): Promise<Email | undefined> {
   return await drizzleClient.query.emailTable.findFirst({
     where: { id: id },
+    with: expand ? {
+      profileList: true,
+    } : undefined,
   });
 }
 
+async function retrieveByEmail({
+  email,
+  expand = false
+}: {
+  email: string;
+  expand?: boolean
+}): Promise<Email | undefined> {
+  return await drizzleClient.query.emailTable.findFirst({
+    where: { email: email },
+    with: expand ? {
+      profileList: true,
+    } : undefined,
+  });
+}
+
+async function create({
+  data,
+}: {
+  data: EmailCreate;
+}): Promise<Email> {
+  let emailData = await retrieveByEmail({
+    email: data.email,
+  });
+
+  if (!emailData) {
+    const createEmail = await drizzleClient
+      .insert(emailTable)
+      .values(data)
+      .returning();
+
+    return createEmail[0];
+  } else {
+    throw new Error("Email already exist.");
+  }
+}
+
 export {
+  create,
   retrieve,
+  retrieveByEmail,
   retrieveById
 };
 
