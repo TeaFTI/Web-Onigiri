@@ -2,12 +2,11 @@
  * Vite Configuration
  */
 
-import { defineConfig, type Plugin } from "vite";
-
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
+import { defineConfig, type Plugin } from "vite";
 
 const NOBLE_CIPHERS = "@noble/ciphers";
 
