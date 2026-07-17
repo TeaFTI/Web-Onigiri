@@ -97,11 +97,11 @@ async function create({
 }: {
   data: UserCreate;
 }): Promise<UserBasic> {
-  let userData = await retrieveByUsername({
+  let retrieveUser = await retrieveByUsername({
     username: data.username,
   });
 
-  if (!userData) {
+  if (!retrieveUser) {
     const createUser = await drizzleClient
       .insert(userTable)
       .values(data)

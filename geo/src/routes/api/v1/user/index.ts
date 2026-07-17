@@ -14,7 +14,7 @@ export const Route = createFileRoute("/api/v1/user/")({
             status: 500,
           });
         }
-      }
+      },
     }
   }
 });
