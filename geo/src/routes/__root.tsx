@@ -13,7 +13,7 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { Toaster } from "~/_shadcn/interface/sonner";
 import { siteConfiguration } from "~/configuration/site";
@@ -42,9 +42,9 @@ export const Route = createRootRoute({
       { rel: "icon", href: "/favicon.ico" },
     ],
   }),
+  component: RootComponent,
   notFoundComponent: NotFoundComponent,
   // shellComponent: RootDocument,
-  component: RootComponent,
 })
 
 function RootComponent() {
