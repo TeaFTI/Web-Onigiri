@@ -1,6 +1,4 @@
-"use client"
-
-import { ComputerIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import {
   Sidebar,
   SidebarContent,
@@ -14,7 +12,6 @@ import {
 } from "~/_shadcn/component/interface/sidebar";
 import { MainSidebarUser } from "./main-sidebar-user";
 
-
 export function MainSidebar() {
   return (
     <Sidebar variant="inset">
@@ -22,9 +19,9 @@ export function MainSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" render={<a href="#" />}>
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <ComputerIcon />
+            <SidebarMenuButton size="lg" render={<Link to="/" />}>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+                <img src="/res/img/geo.svg" alt="Geo" />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">Geo</span>

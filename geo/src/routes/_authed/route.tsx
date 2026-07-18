@@ -16,7 +16,7 @@ import { getCurrentSessionFn } from "~/server/authentication/session";
 export const Route = createFileRoute("/_authed")({
   beforeLoad: async ({ location }) => {
     const currentSession = await getCurrentSessionFn();
-    console.debug("Current Session: ", currentSession);
+    // console.debug("Current Session: ", currentSession);
 
     if (!currentSession) {
       throw redirect({
@@ -24,6 +24,8 @@ export const Route = createFileRoute("/_authed")({
         // search: { redirect: location.href },
       })
     }
+
+    return { currentSession };
   },
   component: MainLayout,
 })
