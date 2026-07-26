@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import * as user from "~/_drizzle/database/user.server";
 import * as uuid from "~/server/uuid";
 
-export const Route = createFileRoute("/api/v1/user/$id")({
+export const Route = createFileRoute("/api/v1/user/$id/")({
   server: {
     handlers: {
       GET: async ({ params }) => {
