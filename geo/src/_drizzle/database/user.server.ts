@@ -1,5 +1,12 @@
+import { eq } from "drizzle-orm";
+
 import { drizzleClient } from "../client";
-import { UserBasic, UserCreate, userTable } from "../schema/user";
+import {
+  UserBasic,
+  UserCreate,
+  userTable,
+  UserUpdate,
+} from "../schema/user";
 
 /**
  * Retrieve and return the list of user(s).
@@ -97,30 +104,78 @@ async function create({
 }: {
   data: UserCreate;
 }): Promise<UserBasic> {
-  let retrieveUser = await retrieveByUsername({
-    username: data.username,
-  });
+  const createUser = await drizzleClient
+    .insert(userTable)
+    .values(data)
+    .returning({
+      id: userTable.id,
+      profileId: userTable.profileId,
+      username: userTable.username,
+    });
 
-  if (!retrieveUser) {
-    const createUser = await drizzleClient
-      .insert(userTable)
-      .values(data)
-      .returning({
-        id: userTable.id,
-        profileId: userTable.profileId,
-        username: userTable.username,
-      });
+  return createUser[0];
+}
 
-    return createUser[0];
-  } else {
-    throw new Error("User already exist.");
-  }
+/**
+ * Update and return a user with the given Universally Unique
+ * IDentifier (UUID) and data.
+ *
+ * @param {string} id - The UUID of the user.
+ * @param {UserUpdate} data - The data to update the user.
+ * @returns {Promise<UserBasic | undefined>} A promise that resolve to a
+ * UserBasic object or undefined.
+ */
+async function updateById({
+  id,
+  data,
+}: {
+  id: string;
+  data: UserUpdate;
+}): Promise<UserBasic | undefined> {
+  const updateUser = await drizzleClient
+    .update(userTable)
+    .set(data)
+    .where(eq(userTable.id, id))
+    .returning({
+      id: userTable.id,
+      profileId: userTable.profileId,
+      username: userTable.username,
+    });
+
+  return updateUser[0];
+}
+
+/**
+ * Delete and return a user with the given Universally Unique
+ * IDentifier (UUID).
+ *
+ * @param {string} id - The UUID of the user.
+ * @returns {Promise<UserBasic | undefined>} A promise that resolve to a
+ * UserBasic object or undefined.
+ */
+async function deleteById({
+  id,
+}: {
+  id: string;
+}): Promise<UserBasic | undefined> {
+  const deleteUser = await drizzleClient
+    .delete(userTable)
+    .where(eq(userTable.id, id))
+    .returning({
+      id: userTable.id,
+      profileId: userTable.profileId,
+      username: userTable.username,
+    });
+
+  return deleteUser[0];
 }
 
 export {
   create,
+  deleteById,
   retrieve,
   retrieveById,
-  retrieveByUsername
+  retrieveByUsername,
+  updateById
 };
 
