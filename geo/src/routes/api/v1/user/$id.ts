@@ -19,7 +19,7 @@ export const Route = createFileRoute("/api/v1/user/$id")({
           }
         } catch (error) {
           console.error("Error:", error);
-          return new Response("Failed to retrieve User data.", {
+          return new Response("Failed to retrieve User.", {
             status: 500,
           });
         }
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/api/v1/user/$id")({
           }
         } catch (error) {
           console.error("Error:", error);
-          return new Response("Failed to update User data.", {
+          return new Response("Failed to update User.", {
             status: 500,
           });
         }
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/api/v1/user/$id")({
           }
         } catch (error) {
           console.error("Error:", error);
-          return new Response("Failed to delete User data.", {
+          return new Response("Failed to delete User.", {
             status: 500,
           });
         }

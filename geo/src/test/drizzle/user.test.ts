@@ -65,7 +65,7 @@ describe("Drizzle User Test", () => {
       console.info("Test Retrieve User By ID");
 
       const userData = {
-        username: "createuser0",
+        username: "retrievebyid0",
         passwordHash: await hashPassword({
           password: "password",
           salt: passwordSalt + borealisSalt,
@@ -89,6 +89,156 @@ describe("Drizzle User Test", () => {
         id: createData.id,
         profileId: null,
         username: userData.username,
+      }));
+
+      const deleteData = await user.deleteById({
+        id: createData.id,
+      });
+
+      // Validate Delete Type
+      expect(deleteData).toBeInstanceOf(Object);
+
+      // Validate Delete Data Content
+      expect(deleteData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: createData.username,
+      }));
+    });
+    test("User Retrieve By ID Expand", async () => {
+      console.info("Test Retrieve User By ID Expand");
+
+      const userData = {
+        username: "retrievebyidexpand0",
+        passwordHash: await hashPassword({
+          password: "password",
+          salt: passwordSalt + borealisSalt,
+        }),
+        salt: passwordSalt,
+      }
+
+      const createData = await user.create({
+        data: userData,
+      });
+
+      const retrieveData = await user.retrieveById({
+        id: createData.id,
+        expand: true,
+      });
+
+      // Validate Retrieve By ID Expand Type
+      expect(retrieveData).toBeInstanceOf(Object);
+
+      // Validate Retrieve By ID Expand Data Content
+      expect(retrieveData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: userData.username,
+        profile: null,
+      }));
+
+      const deleteData = await user.deleteById({
+        id: createData.id,
+      });
+
+      // Validate Delete Type
+      expect(deleteData).toBeInstanceOf(Object);
+
+      // Validate Delete Data Content
+      expect(deleteData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: createData.username,
+      }));
+    });
+    test("User Retrieve By Username", async () => {
+      console.info("Test Retrieve User By Username");
+
+      const userData = {
+        username: "retrievebyusername0",
+        passwordHash: await hashPassword({
+          password: "password",
+          salt: passwordSalt + borealisSalt,
+        }),
+        salt: passwordSalt,
+      }
+
+      const createData = await user.create({
+        data: userData,
+      });
+
+      const retrieveData = await user.retrieveByUsername({
+        username: createData.username,
+      });
+
+      // Validate Retrieve By Username Type
+      expect(retrieveData).toBeInstanceOf(Object);
+
+      // Validate Retrieve By Username Data Content
+      expect(retrieveData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: userData.username,
+      }));
+
+      const deleteData = await user.deleteById({
+        id: createData.id,
+      });
+
+      // Validate Delete Type
+      expect(deleteData).toBeInstanceOf(Object);
+
+      // Validate Delete Data Content
+      expect(deleteData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: createData.username,
+      }));
+    });
+    test("User Retrieve By Username Expand", async () => {
+      console.info("Test Retrieve User By Username Expand");
+
+      const userData = {
+        username: "retrievebyusernameexpand0",
+        passwordHash: await hashPassword({
+          password: "password",
+          salt: passwordSalt + borealisSalt,
+        }),
+        salt: passwordSalt,
+      }
+
+      const createData = await user.create({
+        data: userData,
+      });
+
+      const retrieveData = await user.retrieveByUsername({
+        username: createData.username,
+        expand: true,
+      });
+
+      // Validate Retrieve By Username Expand Type
+      expect(retrieveData).toBeInstanceOf(Object);
+
+      // Validate Retrieve By Username Expand Data Content
+      expect(retrieveData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: userData.username,
+        profile: null,
+      }));
+
+      const deleteData = await user.deleteById({
+        id: createData.id,
+      });
+
+      // Validate Delete Type
+      expect(deleteData).toBeInstanceOf(Object);
+
+      // Validate Delete Data Content
+      expect(deleteData).toEqual(expect.objectContaining({
+        id: createData.id,
+        profileId: null,
+        username: createData.username,
       }));
     });
   });
