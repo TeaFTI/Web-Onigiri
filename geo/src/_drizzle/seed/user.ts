@@ -12,10 +12,10 @@ async function seed() {
 
   await Promise.all(
     userList.map(async (userItem) => {
-      const passwordHash = await hashPassword(
-        userItem.password,
-        userItem.salt + borealisSalt,
-      );
+      const passwordHash = await hashPassword({
+        password: userItem.password,
+        salt: userItem.salt + borealisSalt,
+      });
 
       return user.create({
         data: {

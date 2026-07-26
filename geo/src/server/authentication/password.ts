@@ -30,7 +30,13 @@ function generateSalt({
  * @param {string} salt The salt to use for hashing.
  * @returns {Promise<string>} A promise resolve to the hash password.
  */
-function hashPassword(password: string, salt: string): Promise<string> {
+function hashPassword({
+  password,
+  salt,
+}: {
+  password: string,
+  salt: string,
+}): Promise<string> {
   return new Promise((resolve, reject) => {
     crypto.scrypt(
       password.normalize(),

@@ -43,7 +43,10 @@ const registerFn = createServerFn({ method: "POST" })
         name: data.fullName,
         email: data.email,
         username: data.username,
-        passwordHash: await hashPassword(data.password, userSalt + geoSalt),
+        passwordHash: await hashPassword({
+          password: data.password,
+          salt: userSalt + geoSalt,
+        }),
         salt: userSalt,
       }
 
