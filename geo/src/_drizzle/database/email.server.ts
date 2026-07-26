@@ -25,6 +25,7 @@ async function retrieve({
  * Retrieve and return an email with the given Universally Unique
  * IDentifier (UUID).
  *
+ * @param {string} id - The UUID of the email.
  * @returns {Promise<Email | undefined>} A promise that resolve to a
  * Email object or undefined.
  */
@@ -43,6 +44,15 @@ async function retrieveById({
   });
 }
 
+/**
+ * Retrieve and return an email with the given email address.
+ *
+ * @param {string} email - The email address.
+ * @param {boolean} expand - Whether to expand the email data with
+ * related profile data.
+ * @returns {Promise<Email | undefined>} A promise that resolve to a
+ * Email object or undefined.
+ */
 async function retrieveByEmail({
   email,
   expand = false
@@ -58,6 +68,11 @@ async function retrieveByEmail({
   });
 }
 
+/**
+ *
+ * @param {EmailCreate} data
+ * @returns
+ */
 async function create({
   data,
 }: {
