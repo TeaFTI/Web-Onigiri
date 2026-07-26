@@ -10,7 +10,7 @@ export const Route = createFileRoute("/api/v1/user/expand")({
           return Response.json(await user.retrieve({ expand: true }));
         } catch (error) {
           console.error("Error:", error);
-          return new Response("Failed to retrieve User data.", {
+          return new Response("Failed to retrieve User.", {
             status: 500,
           });
         }
