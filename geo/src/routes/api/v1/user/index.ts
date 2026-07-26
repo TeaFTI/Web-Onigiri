@@ -10,9 +10,23 @@ export const Route = createFileRoute("/api/v1/user/")({
           return Response.json(await user.retrieve());
         } catch (error) {
           console.error("Error:", error);
-          return new Response("Failed to retrieve User data.", {
+          return new Response("Failed to retrieve User.", {
             status: 500,
           });
+        }
+      },
+      POST: async ({ request }) => {
+        try {
+          const data = await request.json();
+          return new Response(
+            JSON.stringify(await user.create({ data: data })),
+            { status: 201 }
+          );
+        } catch (error) {
+          console.error("Error:", error);
+          return new Response(
+            "Failed to create User.", { status: 500 }
+          );
         }
       },
     }
