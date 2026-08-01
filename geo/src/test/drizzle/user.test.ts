@@ -73,9 +73,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       const retrieveData = await user.retrieveById({
         id: createData.id,
@@ -91,9 +89,7 @@ describe("Drizzle User Test", () => {
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -117,9 +113,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       const retrieveData = await user.retrieveById({
         id: createData.id,
@@ -137,9 +131,7 @@ describe("Drizzle User Test", () => {
         profile: null,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -163,9 +155,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       const retrieveData = await user.retrieveByUsername({
         username: createData.username,
@@ -181,9 +171,7 @@ describe("Drizzle User Test", () => {
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -207,9 +195,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       const retrieveData = await user.retrieveByUsername({
         username: createData.username,
@@ -227,9 +213,7 @@ describe("Drizzle User Test", () => {
         profile: null,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -255,9 +239,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       // Validate Create Type
       expect(createData).toBeInstanceOf(Object);
@@ -269,9 +251,7 @@ describe("Drizzle User Test", () => {
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -289,7 +269,7 @@ describe("Drizzle User Test", () => {
       console.info("Test Update User By ID");
 
       const userData = {
-        username: "createuser0",
+        username: "updateuser0",
         passwordHash: await hashPassword({
           password: "password",
           salt: passwordSalt + borealisSalt,
@@ -297,9 +277,7 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
-        data: userData,
-      });
+      const createData = await user.create({ data: userData });
 
       // Validate Create Type
       expect(createData).toBeInstanceOf(Object);
@@ -313,9 +291,7 @@ describe("Drizzle User Test", () => {
 
       const updateData = await user.updateById({
         id: createData.id,
-        data: {
-          username: "updateuser0",
-        },
+        data: { username: "updateuser1" },
       });
 
       // Validate Update Type
@@ -325,12 +301,10 @@ describe("Drizzle User Test", () => {
       expect(updateData).toEqual(expect.objectContaining({
         id: createData.id,
         profileId: null,
-        username: "updateuser0",
+        username: "updateuser1",
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
@@ -370,9 +344,7 @@ describe("Drizzle User Test", () => {
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({
-        id: createData.id,
-      });
+      const deleteData = await user.deleteById({ id: createData.id });
 
       // Validate Delete Type
       expect(deleteData).toBeInstanceOf(Object);
