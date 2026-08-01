@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+
 import { drizzleClient } from "../client";
 import { Email, EmailCreate, emailTable } from "../schema/email";
 
@@ -69,35 +71,76 @@ async function retrieveByEmail({
 }
 
 /**
+ * Create and return a new email with the given data.
  *
- * @param {EmailCreate} data
- * @returns
+ * @param {EmailCreate} data - The data to create the new email.
+ * @returns {Promise<Email>} A promise that resolve to an Email object.
  */
 async function create({
   data,
 }: {
   data: EmailCreate;
 }): Promise<Email> {
-  let emailData = await retrieveByEmail({
-    email: data.email,
-  });
+  const createEmail = await drizzleClient
+    .insert(emailTable)
+    .values(data)
+    .returning();
 
-  if (!emailData) {
-    const createEmail = await drizzleClient
-      .insert(emailTable)
-      .values(data)
-      .returning();
+  return createEmail[0];
+}
 
-    return createEmail[0];
-  } else {
-    throw new Error("Email already exist.");
-  }
+/**
+ * Update and return an email with the given Universally Unique
+ * IDentifier (UUID) and data.
+ *
+ * @param {string} id - The UUID of the email.
+ * @param {Partial<EmailCreate>} data - The data to update the email.
+ * @returns {Promise<Email | undefined>} A promise that resolve to an
+ * Email object or undefined.
+ */
+async function updateById({
+  id,
+  data,
+}: {
+  id: string;
+  data: Partial<EmailCreate>;
+}): Promise<Email | undefined> {
+  const updateEmail = await drizzleClient
+    .update(emailTable)
+    .set(data)
+    .where(eq(emailTable.id, id))
+    .returning();
+
+  return updateEmail[0];
+}
+
+/**
+ * Delete and return an email with the given Universally Unique
+ * IDentifier (UUID).
+ *
+ * @param {string} id - The UUID of the email.
+ * @returns {Promise<Email | undefined>} A promise that resolve to an
+ * Email object or undefined.
+ */
+async function deleteById({
+  id,
+}: {
+  id: string;
+}): Promise<Email | undefined> {
+  const deleteEmail = await drizzleClient
+    .delete(emailTable)
+    .where(eq(emailTable.id, id))
+    .returning();
+
+  return deleteEmail[0];
 }
 
 export {
   create,
+  deleteById,
   retrieve,
   retrieveByEmail,
-  retrieveById
+  retrieveById,
+  updateById
 };
 

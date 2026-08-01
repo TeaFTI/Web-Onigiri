@@ -95,7 +95,7 @@ async function retrieveByUsername({
 /**
  * Create and return a new user with the given data.
  *
- * @param {UserCreate} data - The data to create the user.
+ * @param {UserCreate} data - The data to create the new user.
  * @returns {Promise<UserBasic>} A promise that resolve to a UserBasic
  * object.
  */

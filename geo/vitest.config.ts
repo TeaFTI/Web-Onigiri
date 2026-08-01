@@ -11,6 +11,9 @@ export default defineConfig({
   test: {
     globals: true,
     include: ["src/test/**/*.test.ts"],
-    reporters: ["default", "tree"],
+    reporters: [
+      // "default",
+      "tree",
+    ],
   },
 });

@@ -1,5 +1,5 @@
 /**
- * Database Seed User
+ * drizzle Seed User
  */
 
 import { hashPassword } from "../../server/authentication/password";
@@ -26,7 +26,6 @@ async function seed() {
       });
     }),
   );
-}
+};
 
-export default seed;
 export { seed };

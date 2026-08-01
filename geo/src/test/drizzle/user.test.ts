@@ -1,5 +1,5 @@
 /**
- * Drizzle User Test
+ * drizzle User Test
  */
 
 import {
@@ -19,26 +19,29 @@ const test = baseTest.extend<{}>({
 
 });
 
-describe("Drizzle User Test", () => {
-  console.info("Test Drizzle User");
+describe("drizzle User Test", () => {
+  console.info("Test drizzle User");
 
   const passwordSalt = "fe464db162ca7d501e3de3dd22cc534e";
   const borealisSalt = process.env.BOREALIS_SALT ?? "";
 
+  /**
+   * Retrieve
+   */
   describe.concurrent("Retrieve", () => {
     test("User Retrieve", async () => {
       console.info("Test Retrieve User");
 
-      const retrieveData = await user.retrieve();
+      const retrieveUser = await user.retrieve();
 
       // Validate Retrieve Type
-      expect(retrieveData).toBeInstanceOf(Array);
+      expect(retrieveUser).toBeInstanceOf(Array);
 
       // Validate Retrieve Seed Data
-      expect(retrieveData.length).toBeGreaterThanOrEqual(1);
+      expect(retrieveUser.length).toBeGreaterThanOrEqual(1);
 
       // Validate Retrieve Seed Data Content (Asymmetric Matcher)
-      expect(retrieveData).toEqual(
+      expect(retrieveUser).toEqual(
         expect.arrayContaining(
           userList.map((item) => expect.objectContaining({
             username: item.username
@@ -49,16 +52,16 @@ describe("Drizzle User Test", () => {
     test("User Retrieve Expand", async () => {
       console.info("Test Retrieve User Expand");
 
-      const retrieveData = await user.retrieve({ expand: true });
+      const retrieveUser = await user.retrieve({ expand: true });
 
       // Validate Retrieve Expand Type
-      expect(retrieveData).toBeInstanceOf(Array);
+      expect(retrieveUser).toBeInstanceOf(Array);
 
       // Validate Retrieve Expand Seed Data
-      expect(retrieveData.length).toBeGreaterThanOrEqual(1);
+      expect(retrieveUser.length).toBeGreaterThanOrEqual(1);
 
       // Validate Retrieve Relation Data
-      for (const entry of retrieveData)
+      for (const entry of retrieveUser)
         expect(entry).toHaveProperty("profile");
     });
     test("User Retrieve By ID", async () => {
@@ -73,32 +76,32 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
-      const retrieveData = await user.retrieveById({
-        id: createData.id,
+      const retrieveUser = await user.retrieveById({
+        id: createUser.id,
       });
 
       // Validate Retrieve By ID Type
-      expect(retrieveData).toBeInstanceOf(Object);
+      expect(retrieveUser).toBeInstanceOf(Object);
 
       // Validate Retrieve By ID Data Content
-      expect(retrieveData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(retrieveUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
     test("User Retrieve By ID Expand", async () => {
@@ -113,34 +116,34 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
-      const retrieveData = await user.retrieveById({
-        id: createData.id,
+      const retrieveUser = await user.retrieveById({
+        id: createUser.id,
         expand: true,
       });
 
       // Validate Retrieve By ID Expand Type
-      expect(retrieveData).toBeInstanceOf(Object);
+      expect(retrieveUser).toBeInstanceOf(Object);
 
       // Validate Retrieve By ID Expand Data Content
-      expect(retrieveData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(retrieveUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
         profile: null,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
     test("User Retrieve By Username", async () => {
@@ -155,32 +158,32 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
-      const retrieveData = await user.retrieveByUsername({
-        username: createData.username,
+      const retrieveUser = await user.retrieveByUsername({
+        username: createUser.username,
       });
 
       // Validate Retrieve By Username Type
-      expect(retrieveData).toBeInstanceOf(Object);
+      expect(retrieveUser).toBeInstanceOf(Object);
 
       // Validate Retrieve By Username Data Content
-      expect(retrieveData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(retrieveUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
     test("User Retrieve By Username Expand", async () => {
@@ -195,37 +198,41 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
-      const retrieveData = await user.retrieveByUsername({
-        username: createData.username,
+      const retrieveUser = await user.retrieveByUsername({
+        username: createUser.username,
         expand: true,
       });
 
       // Validate Retrieve By Username Expand Type
-      expect(retrieveData).toBeInstanceOf(Object);
+      expect(retrieveUser).toBeInstanceOf(Object);
 
       // Validate Retrieve By Username Expand Data Content
-      expect(retrieveData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(retrieveUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
         profile: null,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
   });
+
+  /**
+   * Create
+   */
   describe.concurrent("Create", () => {
     test("Create User", async () => {
       console.info("Test Create User");
@@ -239,31 +246,35 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
       // Validate Create Type
-      expect(createData).toBeInstanceOf(Object);
+      expect(createUser).toBeInstanceOf(Object);
 
       // Validate Create Data Content
-      expect(createData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(createUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
   });
+
+  /**
+   * Update
+   */
   describe.concurrent("Update", () => {
     test("Update User By ID", async () => {
       console.info("Test Update User By ID");
@@ -277,46 +288,50 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({ data: userData });
+      const createUser = await user.create({ data: userData });
 
       // Validate Create Type
-      expect(createData).toBeInstanceOf(Object);
+      expect(createUser).toBeInstanceOf(Object);
 
       // Validate Create Data Content
-      expect(createData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(createUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
       }));
 
-      const updateData = await user.updateById({
-        id: createData.id,
+      const updateUser = await user.updateById({
+        id: createUser.id,
         data: { username: "updateuser1" },
       });
 
       // Validate Update Type
-      expect(updateData).toBeInstanceOf(Object);
+      expect(updateUser).toBeInstanceOf(Object);
 
       // Validate Update Data Content
-      expect(updateData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(updateUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: "updateuser1",
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: updateData?.username,
+        username: updateUser?.username,
       }));
     });
   });
+
+  /**
+   * Delete
+   */
   describe.concurrent("Delete", () => {
     test("Delete User By ID", async () => {
       console.info("Test Delete User By ID");
@@ -330,30 +345,30 @@ describe("Drizzle User Test", () => {
         salt: passwordSalt,
       }
 
-      const createData = await user.create({
+      const createUser = await user.create({
         data: userData,
       });
 
       // Validate Create Type
-      expect(createData).toBeInstanceOf(Object);
+      expect(createUser).toBeInstanceOf(Object);
 
       // Validate Create Data Content
-      expect(createData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(createUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
         username: userData.username,
       }));
 
-      const deleteData = await user.deleteById({ id: createData.id });
+      const deleteUser = await user.deleteById({ id: createUser.id });
 
       // Validate Delete Type
-      expect(deleteData).toBeInstanceOf(Object);
+      expect(deleteUser).toBeInstanceOf(Object);
 
       // Validate Delete Data Content
-      expect(deleteData).toEqual(expect.objectContaining({
-        id: createData.id,
+      expect(deleteUser).toEqual(expect.objectContaining({
+        id: createUser.id,
         profileId: null,
-        username: createData.username,
+        username: createUser.username,
       }));
     });
   });
