@@ -10,7 +10,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "~/_shadcn/component/interface/sidebar";
-import { MainSidebar } from "~/component/main-sidebar";
+import { SidebarMain } from "~/component/sidebar-main";
 import { getCurrentSessionFn } from "~/server/authentication/session";
 
 export const Route = createFileRoute("/_authed")({
@@ -34,7 +34,7 @@ function MainLayout() {
   return (
     <div>
       <SidebarProvider>
-        <MainSidebar />
+        <SidebarMain />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center gap-2">
             <div className="flex items-center gap-2 px-4">

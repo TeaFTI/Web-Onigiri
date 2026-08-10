@@ -24,7 +24,7 @@ import {
 } from "~/_shadcn/component/interface/sidebar";
 import { logoutFn } from "~/server/authentication/logout";
 
-export function MainSidebarUser() {
+export function SidebarUser() {
   const { isMobile } = useSidebar();
   const { currentSession } = useRouteContext({ from: "/_authed" });
 
