@@ -6,6 +6,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Client, Pool } from "pg";
 
 import { POSTGRESQL_URI } from "~/configuration/drizzle";
+import { relation } from "./relation";
 
 import { accountRelationList } from "./schema/account";
 import { accountTransactionRelationList } from "./schema/account-transaction";
@@ -19,11 +20,9 @@ import { countryCurrencyRelationList } from "./schema/country-currency";
 import { divisionRelationList } from "./schema/division";
 import { journalRelationList } from "./schema/journal";
 import { profileAddressRelationList } from "./schema/profile-address";
-import { profileEmailRelationList } from "./schema/profile-email";
 import { profileTelephoneNumberRelation } from "./schema/profile-telephone-number";
 import { propertyRelationList } from "./schema/property";
 import { transactionRelationList } from "./schema/transaction";
-import { userRelationList } from "./schema/user";
 import { userAccountRelationList } from "./schema/user-account";
 import { userContractRelationList } from "./schema/user-contract";
 
@@ -50,19 +49,19 @@ const relationList = {
   ...divisionRelationList,
   ...journalRelationList,
   ...profileAddressRelationList,
-  ...profileEmailRelationList,
   ...profileTelephoneNumberRelation,
   ...propertyRelationList,
   ...transactionRelationList,
   ...userAccountRelationList,
   ...userContractRelationList,
-  ...userRelationList,
 };
 
 const drizzleClient = drizzle({
   client: pgPool,
   // drizzle 1.0.0-beta.22 Update
-  relations: relationList,
+  relations: {
+    ...relation,
+  },
   logger: true,
 });
 

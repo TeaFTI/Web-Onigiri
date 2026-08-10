@@ -1,7 +1,12 @@
 import { eq } from "drizzle-orm";
 
 import { drizzleClient } from "../client";
-import { Email, EmailCreate, emailTable } from "../schema/email";
+import {
+  Email,
+  EmailCreate,
+  emailTable,
+  EmailUpdate,
+} from "../schema/email";
 
 /**
  * Retrieve and return the list of email(s).
@@ -103,7 +108,7 @@ async function updateById({
   data,
 }: {
   id: string;
-  data: Partial<EmailCreate>;
+  data: EmailUpdate;
 }): Promise<Email | undefined> {
   const updateEmail = await drizzleClient
     .update(emailTable)
