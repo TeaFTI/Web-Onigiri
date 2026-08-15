@@ -4,5 +4,11 @@
     "password": "IHopeThisIsNotYourPassword",
     "email": "administrator@localhost.lcl",
     "salt": "correcthorsebatterystaple"
+  },
+  {
+    "username": "test",
+    "password": "Test",
+    "email": "test@localhost.lcl",
+    "salt": "correcthorsebatterystaple"
   }
 ]

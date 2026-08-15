@@ -1,5 +1,8 @@
 [
   {
     "email": "administrator@localhost.lcl"
+  },
+  {
+    "email": "test@localhost.lcl"
   }
 ]

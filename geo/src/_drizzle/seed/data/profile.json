@@ -1,5 +1,9 @@
 [
   {
     "firstName": "Administrator"
+  },
+  {
+    "firstName": "Test",
+    "lastName": "User"
   }
 ]
