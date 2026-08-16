@@ -12,7 +12,7 @@ import { profileTable } from "./profile";
 const userTable = pgTable(`${TABLE_PREFIX}user`, {
   id: uuid("id").primaryKey().default(sql`uuidv7()`),
   profileId: uuid("profile_id").unique()
-    .references(() => profileTable.id),
+    .references(() => profileTable.id, { onDelete: "cascade" }),
   username: text("username").notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   salt: text("salt").notNull(),

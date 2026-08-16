@@ -9,7 +9,7 @@ import emailList from "./data/email.json";
 async function seed() {
   await Promise.all(
     emailList.map(async (emailItem) => {
-      return email.create({
+      return await email.create({
         data: {
           email: emailItem.email,
         },

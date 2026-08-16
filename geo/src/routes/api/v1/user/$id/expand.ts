@@ -25,7 +25,7 @@ export const Route = createFileRoute("/api/v1/user/$id/expand")({
             status: 500,
           });
         }
-      }
-    }
-  }
+      },
+    },
+  },
 });

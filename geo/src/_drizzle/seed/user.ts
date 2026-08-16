@@ -17,7 +17,7 @@ async function seed() {
         salt: userItem.salt + borealisSalt,
       });
 
-      return user.create({
+      return await user.create({
         data: {
           username: userItem.username,
           passwordHash: passwordHash,

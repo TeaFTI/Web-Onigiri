@@ -6,6 +6,7 @@ import { drizzleClient, pgClient } from "./client";
 
 import * as chartOfAccountType from "./seed/chart-of-account-type";
 import * as email from "./seed/email";
+import * as profile from "./seed/profile";
 import * as user from "./seed/user";
 
 async function plant() {
@@ -23,6 +24,9 @@ async function plant() {
 
     await user.seed();
     console.debug("Seeding user Complete.");
+
+    await profile.seed();
+    console.debug("Seeding profile Complete.");
 
     await email.seed();
     console.debug("Seeding email Complete.");
